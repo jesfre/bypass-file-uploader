@@ -13,12 +13,11 @@ jobs:
     steps:
       - checkout
 
-      # Download and cache dependencies
       - restore_cache:
-        keys:
-          - m2-{{ checksum "pom.xml" }}
-          # fallback to using the latest cache if no exact match is found
-          - m2-
+          keys:
+            - v1-dependencies-{{ checksum "pom.xml" }}
+            # fallback to using the latest cache if no exact match is found
+            - v1-dependencies-
 
       - run: mvn install -DskipTests=true
 
