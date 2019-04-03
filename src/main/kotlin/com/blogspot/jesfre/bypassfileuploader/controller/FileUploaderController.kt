@@ -23,10 +23,11 @@ class FileUploaderController {
     }
 
     @PostMapping
-    fun handleImagePost(@RequestParam("file") fileArray: Array<MultipartFile>): String {
+    fun handleImagePost(@RequestParam("file") fileArray: Array<MultipartFile>, @RequestParam("path") path:String): String {
         println("Entering handleImagePost method...")
+
         for(file in fileArray)
-            fileUploadService.saveFile(file)
+            fileUploadService.saveFile(file, path)
 
         println("Returning to uploadfile...")
         return "redirect:/uploadfile"

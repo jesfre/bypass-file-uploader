@@ -23,18 +23,23 @@
             <div class="pannel-group">
                 <div class="panel panel-primary">
                     <div class="panel-heading">
-                        <h1 class="panel-title">Upload a new recipe image</h1>
+                        <h1 class="panel-title">Upload files</h1>
                     </div>
                     <div class="panel-body">
                         <div class="row">
-                            <div class="col-md-5">
-                                <form  action="http:\\localhost" method="post" enctype="multipart/form-data"
-                                       th:action="@{'/uploadfile'}">
+                            <form  action="http:\\localhost" method="post" enctype="multipart/form-data"
+                                   th:action="@{'/uploadfile'}">
+                                <div class="col-md-5">
+                                    <label class="control-label">Upload into sub-path</label>
+                                    <input type="text" th:size="50" id="path" name="path"/>
+                                </div>
+                                <br/>
+                                <div class="col-md-5">
                                     <label class="control-label">Select File</label>
                                     <input id="file" name="file" type="file" multiple="multiple" class="file">
                                     <button type="submit" class="btn btn-primary">Submit</button>
-                                </form>
-                            </div>
+                                </div>
+                            </form>
                         </div>
                     </div>
                 </div>

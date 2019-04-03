@@ -7,13 +7,31 @@ import java.io.File
 
 import java.io.IOException
 import java.nio.file.Files
+import java.nio.file.Path
+import java.nio.file.Paths
 import java.nio.file.StandardOpenOption
 
 
 @Service
 class FileUploadServiceImpl : FileUploadService {
 
-    override fun saveFile(file: MultipartFile) {
+    override fun saveFile(file: MultipartFile, pathString:String) {
+        var pathToSave = Paths.get("D:/dev/bypass-file-uploader/outputs/")
+        try{
+            if(pathString != "") {
+                var path:Path = Paths.get(pathString)
+                if(null != path.root) {
+                   path =  path.subpath(0   , path.nameCount)
+                }
+                val tempPathToSave = pathToSave.resolve(path)
+                if(!Files.isDirectory(tempPathToSave)) {
+                    Files.createDirectories(tempPathToSave)
+                }
+                pathToSave = tempPathToSave
+            }
+        } catch (e: Exception) {
+            e.printStackTrace()
+        }
 
         try {
 
@@ -26,8 +44,8 @@ class FileUploadServiceImpl : FileUploadService {
             }
 
 
-            val fileName = "D:/dev/bypass-file-uploader/outputs/" + file.originalFilename
-            val myFile = File(fileName)
+            val fileName = pathToSave.resolve(file.originalFilename)
+            val myFile = File(fileName.toString())
 
             println("Writing filename:$fileName...")
 
